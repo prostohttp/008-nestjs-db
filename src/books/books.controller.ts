@@ -8,7 +8,7 @@ import {
   Put,
 } from "@nestjs/common";
 import { BooksService } from "./books.service";
-import { Book } from "./schhemas/book.schhema";
+import { Book } from "./schemas/book.schhema";
 import { CreateBookDto } from "./dto/create.book.dto";
 import { RequestType } from "./entities/requestType";
 

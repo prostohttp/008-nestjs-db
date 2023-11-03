@@ -1,7 +1,7 @@
 import { HttpException, Injectable } from "@nestjs/common";
 import { Model } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
-import { Book } from "./schhemas/book.schhema";
+import { Book } from "./schemas/book.schhema";
 import { CreateBookDto } from "./dto/create.book.dto";
 import { RequestType } from "./entities/requestType";
 
