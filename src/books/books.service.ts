@@ -1,15 +1,17 @@
 import { HttpException, Injectable } from "@nestjs/common";
 import { Model } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
-import { Book } from "./schemas/book.schhema";
+import { Book, BookDocument } from "./schemas/book.schhema";
 import { CreateBookDto } from "./dto/create.book.dto";
 import { RequestType } from "./entities/requestType";
 
 @Injectable()
 export class BooksService {
-  constructor(@InjectModel(Book.name) private bookModel: Model<Book>) {}
+  constructor(@InjectModel(Book.name) private bookModel: Model<BookDocument>) {}
 
-  async create(createBookDto: CreateBookDto): Promise<Book | RequestType> {
+  async create(
+    createBookDto: CreateBookDto,
+  ): Promise<BookDocument | RequestType> {
     try {
       const createdBook = new this.bookModel(createBookDto);
       if (createdBook) {
@@ -24,7 +26,7 @@ export class BooksService {
     }
   }
 
-  async getAll(): Promise<Book[]> {
+  async getAll(): Promise<BookDocument[]> {
     try {
       return this.bookModel.find().exec();
     } catch (error) {
@@ -52,7 +54,7 @@ export class BooksService {
   async update(
     id: string,
     updatedFields: Partial<CreateBookDto>,
-  ): Promise<Book | RequestType> {
+  ): Promise<BookDocument | RequestType> {
     try {
       const foundedBook = await this.bookModel.findOne({ id: id }).exec();
       if (foundedBook) {
