@@ -16,22 +16,22 @@ import { RequestType } from "./entities/requestType";
 export class BooksController {
   constructor(private readonly booksService: BooksService) {}
 
-  @Post("add")
+  @Post()
   createBook(@Body() book: CreateBookDto): Promise<BookDocument | RequestType> {
     return this.booksService.create(book);
   }
 
-  @Get("all")
+  @Get()
   async getAll(): Promise<BookDocument[]> {
     return this.booksService.getAll();
   }
 
-  @Delete("del/:id")
+  @Delete(":id")
   async deleteBook(@Param("id") id: string): Promise<RequestType> {
     return this.booksService.delete(id);
   }
 
-  @Put("update/:id")
+  @Put(":id")
   async updateBook(
     @Param("id") id: string,
     @Body() book: CreateBookDto,
