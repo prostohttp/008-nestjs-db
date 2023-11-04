@@ -8,7 +8,7 @@ import {
   Put,
 } from "@nestjs/common";
 import { BooksService } from "./books.service";
-import { BookDocument } from "./schemas/book.schhema";
+import { BookDocument } from "./schemas/book.schema";
 import { CreateBookDto } from "./dto/create.book.dto";
 import { RequestType } from "./entities/requestType";
 
@@ -17,7 +17,9 @@ export class BooksController {
   constructor(private readonly booksService: BooksService) {}
 
   @Post()
-  createBook(@Body() book: CreateBookDto): Promise<BookDocument | RequestType> {
+  async createBook(
+    @Body() book: CreateBookDto,
+  ): Promise<BookDocument | RequestType> {
     return this.booksService.create(book);
   }
 

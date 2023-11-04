@@ -8,7 +8,7 @@ import { BooksModule } from "./books/books.module";
 @Module({
   imports: [
     BooksModule,
-    ConfigModule.forRoot({}),
+    ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGO_URL),
   ],
   controllers: [AppController],
