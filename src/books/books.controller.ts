@@ -10,7 +10,7 @@ import {
 import { BooksService } from "./books.service";
 import { BookDocument } from "./schemas/book.schema";
 import { CreateBookDto } from "./dto/create.book.dto";
-import { RequestType } from "./entities/requestType";
+import { RequestType } from "./interfaces/requestType";
 
 @Controller("books")
 export class BooksController {
