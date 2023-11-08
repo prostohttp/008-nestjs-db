@@ -20,7 +20,7 @@ export class BooksController {
   async createBook(
     @Body() book: CreateBookDto,
   ): Promise<BookDocument | RequestType> {
-    return this.booksService.create(book);
+    return await this.booksService.create(book);
   }
 
   @Get()
