@@ -1,4 +1,4 @@
-import { HttpException, Injectable } from "@nestjs/common";
+import { HttpException, Injectable, NotFoundException } from "@nestjs/common";
 import { Model } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
 import { Book, BookDocument } from "./schemas/book.schema";
@@ -28,7 +28,22 @@ export class BooksService {
 
   async getAll(): Promise<BookDocument[]> {
     try {
-      return this.bookModel.find().exec();
+      return this.bookModel.find();
+    } catch (error) {
+      throw new HttpException("Ошибка сервера", 500);
+    }
+  }
+
+  async getBook(id: string): Promise<BookDocument | RequestType> {
+    try {
+      const book = await this.bookModel.findOne({ id: id });
+      if (book) {
+        return book;
+      } else {
+        return {
+          error: "not found",
+        };
+      }
     } catch (error) {
       throw new HttpException("Ошибка сервера", 500);
     }
@@ -56,13 +71,11 @@ export class BooksService {
     updatedFields: Partial<CreateBookDto>,
   ): Promise<BookDocument | RequestType> {
     try {
-      const foundedBook = await this.bookModel.findOne({ id: id }).exec();
+      const foundedBook = await this.bookModel.findOne({ id: id });
       if (foundedBook) {
-        return this.bookModel
-          .findOneAndUpdate({ id: id }, updatedFields, {
-            new: true,
-          })
-          .exec();
+        return this.bookModel.findOneAndUpdate({ id: id }, updatedFields, {
+          new: true,
+        });
       } else {
         return {
           error: "not found",

@@ -28,6 +28,11 @@ export class BooksController {
     return this.booksService.getAll();
   }
 
+  @Get(":id")
+  async getBook(@Param("id") id: string): Promise<BookDocument | RequestType> {
+    return this.booksService.getBook(id);
+  }
+
   @Delete(":id")
   async deleteBook(@Param("id") id: string): Promise<RequestType> {
     return this.booksService.delete(id);
